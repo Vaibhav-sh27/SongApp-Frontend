@@ -9,8 +9,9 @@ class Brand extends React.Component {
             <div  className={"brand"}>
                 <Link to={"/home"}>
                     <h1> 
-                        <img src={Logo} width={"24px"} alt=""/>
-                        BeetX
+                        
+                        <img src={Logo} width={"24px"} alt="" style={{rotate:'180deg'}}/>
+                        BeatX
                     </h1>
                 </Link>
             </div>
