@@ -8,10 +8,9 @@ class Brand extends React.Component {
         return (
             <div  className={"brand"}>
                 <Link to={"/home"}>
-                    <h1>
-                        V
+                    <h1> 
                         <img src={Logo} width={"24px"} alt=""/>
-                        sic
+                        BeetX
                     </h1>
                 </Link>
             </div>
