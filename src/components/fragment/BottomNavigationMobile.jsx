@@ -27,12 +27,12 @@ function BottomNavigationMobile() {
             href: "/home/profile",
             label: "Profile"
         },
-        {
-            id: 3,
-            icon: <ExploreOutlinedIcon/>,
-            href: "/home/about",
-            label: "About"
-        }
+        // {
+        //     id: 3,
+        //     icon: <ExploreOutlinedIcon/>,
+        //     href: "/home/about",
+        //     label: "About"
+        // }
     ]);
     let currPath = window.location.pathname;
     return (
