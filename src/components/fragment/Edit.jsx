@@ -98,7 +98,7 @@ function EditMusic() {
         
     }
 
-    async function  handleDeleteImg(img, _id) {
+    async function  handleDeleteImg(img) {
 
         if(img !== notAvail){
             const fileRef = ref(storage, img);
@@ -114,7 +114,7 @@ function EditMusic() {
        
     }
 
-    async function handleDeleteSong(musicName, _id) {
+    async function handleDeleteSong(musicName) {
         const fileRef2 = ref(storage, musicName);
         await deleteObject(fileRef2).then(() => {
             console.log("Song deleted successfully");
@@ -129,7 +129,7 @@ function EditMusic() {
 
         console.log(imageUpload);
         if (imageUpload == null) return;
-        handleDeleteImg(data.img, data._id);
+        handleDeleteImg(data.img);
         const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             setLoading(false);
@@ -146,7 +146,7 @@ function EditMusic() {
         console.log(songUpload);
         if (songUpload == null) return;
         data.musicName?
-        handleDeleteSong(data.musicName, data._id) : console.log("clear");
+        handleDeleteSong(data.musicName) : console.log("clear");
         const songRef = ref(storage, `songs/${songUpload.name + v4()}`);
         const metadata = {
             contentType: 'audio/mpeg',

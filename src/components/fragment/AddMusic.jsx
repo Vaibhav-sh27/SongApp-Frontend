@@ -8,6 +8,7 @@ import axios from "axios";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 import Modal from 'react-bootstrap/Modal';
+import { getStorage, deleteObject } from "firebase/storage";
 // import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 
@@ -39,6 +40,7 @@ function AddMusic() {
     const [songName,setSong] = useState(null);
     const qs = require('qs');
     const history = useHistory();
+    let notAvail="https://firebasestorage.googleapis.com/v0/b/music-db-19482.appspot.com/o/images%2FnotAvailable.jpg?alt=media&token=6d200741-88a0-4128-8764-41c82f8f4315";
 
 
     // let id =musicDB[musicDB.length-1].id + 1;
@@ -53,10 +55,37 @@ function AddMusic() {
         inputs.onChange(e)
         
     }
+
+    async function  handleDeleteImg(img) {
+
+        if(img !== notAvail){
+            const fileRef = ref(storage, img);
+            await deleteObject(fileRef).then(() => {
+                console.log("Image deleted successfully");
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+    }
+
+    async function handleDeleteSong(musicName) {
+        const fileRef2 = ref(storage, musicName);
+        await deleteObject(fileRef2).then(() => {
+            console.log("Song deleted successfully");
+            
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+
     const uploadImg = ()=>{
         setLoading(true);
         console.log(imageUpload);
         if (imageUpload == null) return;
+        if(selected!==null){
+            handleDeleteImg(selected);
+        }
         const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             setLoading(false);
@@ -72,6 +101,9 @@ function AddMusic() {
         setLoading(true);
         console.log(songUpload);
         if (songUpload == null) return;
+        if(selected2!==null){
+            handleDeleteSong(selected2);
+        }
         const songRef = ref(storage, `songs/${songUpload.name + v4()}`);
         const metadata = {
             contentType: 'audio/mpeg',
