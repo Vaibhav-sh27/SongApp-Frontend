@@ -16,19 +16,36 @@ import Search from "./Search";
 import About from "./About";
 import Playlist from "../fragment/Playlist";
 import {Skeleton} from "@material-ui/lab";
+import EditMusic from "../fragment/Edit";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function getCurrPage(pathName) {
+    // <Switch>
+    //   <Route path="/home" children={<Child />} />
+    // </Switch>
+    // let ll="ss";
+    // ll.substring(0,)
+    let ll= pathName.toString();
+    let id= ll.substring(15);
+    console.log(id);
+
     switch (pathName) {
+        
         case "/home":
             return <MusicCardContainer/>
         case "/home/search":
             return <Search/>
-        case "/home/profile":
+        case "/home/profile": 
             return <Profile/>
         case "/home/add":
             return <AddMusic/>
         case "/home/about":
             return <About/>
+        case "/home/edit":
+            return <MusicCardContainer/>
+        case `/home/editsong/${id}`:
+            return <EditMusic/>
+        
         default:
             if (pathName.startsWith("/home/playlist/")) {
                 return <Playlist/>

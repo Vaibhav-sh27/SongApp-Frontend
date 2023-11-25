@@ -14,11 +14,13 @@ const DropDownLanguageList = () => {
         "Any",
         "Hindi",
         "English",
+        "Punjabi"
     ];
     const [selectedList, setSelectedList] = useState({
         "Any": false,
         "Hindi": false,
         "English": false,
+        "Punjabi": false
     });
     const handleSelected = (val, selected) => {
         setSelectedList(prevState => {
@@ -35,6 +37,9 @@ const DropDownLanguageList = () => {
         for (let i in selectedList) {
             if (selectedList[i] === true)
                 list.push(i.toLowerCase());
+        }
+        if(list.length===0){
+            list.push("Any".toLowerCase());
         }
         dispatch(setMusicLang(list));
     };

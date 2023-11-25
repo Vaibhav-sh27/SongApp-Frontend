@@ -6,12 +6,14 @@ import {ExploreOutlined, HomeOutlined, PlaylistPlay, SearchOutlined} from "@mate
 
 function SideBar() {
     const useStyle = useContext(ThemeContext);
+    
     return (
         <aside style={useStyle.component} className={"aside-bar"}>
             <div className="aside-bar-container">
                 <p className={"p1"}>
                     <span>LIBRARY</span>
                 </p>
+               
                 <SideBarOptions className={"lib-sub"} Icon={HomeOutlined} href={"/home"} title={"Home"} />
                 {/* <SideBarOptions className={"lib-sub"} Icon={ExploreOutlined} href={"/home/about"}  title={"About"}/> */}
                 <SideBarOptions className={"lib-sub"} Icon={SearchOutlined} href={"/home/search"}  title={"Search"}/>
@@ -20,11 +22,14 @@ function SideBar() {
             </div>
             <div className="aside-bar-container playlist">
                 <p className={"p1"}>
-                    <span>MY PLAYLIST</span>
+                    <span>PLAYLISTS</span>
                 </p>
-                <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist/instrumental"}  title={"Instrumental"}/>
+
                 <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist/electronic"}  title={"Electronic"}/>
                 <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist/groovy"}  title={"Groovy"}/>
+                <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist/instrumental"}  title={"Instrumental"}/>
+                <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist/love"}  title={"Love"}/>
+                <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist/sufi"}  title={"Sufi"}/>
             </div>
         </aside>
     );

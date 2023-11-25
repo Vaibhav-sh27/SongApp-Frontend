@@ -1,11 +1,15 @@
 .Nav-btn {
-  padding-right: 10px;
+  
   font-size: 1.1rem;
   transition: color .15s ease-in-out;
+  background-color: cornflowerblue !important;
+  padding: 10px;
+  border-radius: 15px;
+  color: white !important;
 }
 
 .Nav-btn:hover {
-  color: #07689f !important;
+  background-color: #07689f !important;
   transform: scale(1.05);
-  text-decoration: underline #333;
+  text-decoration: none;
 }
