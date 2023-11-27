@@ -203,7 +203,7 @@ export function LoginForm(props) {
       </FormContainer>
       
       <LineText>
-        Don't have an accoun?{" "}
+        Don't have an account?{" "}
         <BoldLink onClick={switchToSignup} style={{cursor:"pointer"}}>
           Signup
         </BoldLink>
