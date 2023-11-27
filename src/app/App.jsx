@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './App.scss';
 import Home from "../components/Pages/Home";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom';
 import Login from "../components/Pages/Login";
 import {ThemeContext, themes} from "../api/Theme";
 import {setSongDB} from "../db/music";
@@ -16,6 +16,11 @@ const App = () => {
     let [loadingInProgress, setLoading] = useState(false);
     const {language} = useSelector(state => state.musicReducer);
     const [musicDB, setDB] = useState([]);
+    const history = useHistory();
+
+
+    
+
 
     useEffect(() => {
         async function getData(){
@@ -49,6 +54,12 @@ const App = () => {
     },[dispatch, language, musicDB]); 
 
     // if(musicDB){
+
+    // useEffect(()=>{
+    //     if(sessionStorage.name){
+    //         history.replace('/home');
+    //     }
+    // });
         
     
     return (
@@ -62,7 +73,7 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route path="/" exact component={Login}/>
-                        <Route path="*/home" component={Home}/>
+                        <Route path="/home" component={Home}/>
                     </Switch>
                 </Router>
             </>

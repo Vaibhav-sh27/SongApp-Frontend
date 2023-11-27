@@ -48,7 +48,7 @@ function MusicCard(props) {
 
         const storage = getStorage();
         const qs = require('qs');
-        if(img != notAvail){
+        if(img !== notAvail){
             const fileRef = ref(storage, img);
             await deleteObject(fileRef).then(() => {
                 console.log("Image deleted successfully");
@@ -57,7 +57,7 @@ function MusicCard(props) {
             });
         }
         
-
+        if(musicName){
         const fileRef2 = ref(storage, musicName);
         await deleteObject(fileRef2).then(() => {
             console.log("Song deleted successfully");
@@ -65,6 +65,7 @@ function MusicCard(props) {
         }).catch((error) => {
             console.log(error);
         });
+        }
 
         let data = qs.stringify({
             'id': _id 

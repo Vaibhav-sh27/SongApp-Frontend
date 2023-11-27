@@ -17,17 +17,20 @@ import About from "./About";
 import Playlist from "../fragment/Playlist";
 import {Skeleton} from "@material-ui/lab";
 import EditMusic from "../fragment/Edit";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom';
 
 function getCurrPage(pathName) {
     // <Switch>
     //   <Route path="/home" children={<Child />} />
     // </Switch>
-    // let ll="ss";
+    // let lll="Vaibhav";
+    // let dd=lll.toUpperCase().split;
+    // console.log(dd);
     // ll.substring(0,)
     let ll= pathName.toString();
     let id= ll.substring(15);
     console.log(id);
+    // console.log(sessionStorage.isAdmin==="true");
 
     switch (pathName) {
         
@@ -60,9 +63,15 @@ function Home() {
     const [screenSize, setScreenSize] = useState(undefined);
     const [currMusic, setCurrMusic] = useState(null);
     const [Page, setCurrPage] = useState(<MusicCardContainer/>);
+    const history= useHistory();
 
     let pathname = window.location.pathname;
+    
     useEffect(() => {
+        if(!sessionStorage.name){
+            history.replace('/')
+        }
+        
         setCurrPage(getCurrPage(pathname))
     }, [pathname]);
 

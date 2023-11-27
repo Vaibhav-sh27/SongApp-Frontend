@@ -19,7 +19,7 @@
 }
 #main .main-row {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row wrap !important;
   justify-content: space-between;
   align-items: center;
   height: 90vh;

@@ -5,7 +5,7 @@ import {Button} from "@material-ui/core";
 import {ThemeContext} from "../../api/Theme";
 import musicDB from "../../db/music";
 import axios from "axios";
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import HashLoader from "react-spinners/HashLoader";
 import { getStorage, deleteObject } from "firebase/storage";
@@ -194,13 +194,14 @@ function EditMusic() {
             .then((response) => {
             console.log(JSON.stringify(response.data));
             // navigate('/home');
-            // history.push("/home");
+            history.push("/home/edit");
+            window.location.reload();
             })
             .catch((error) => {
             console.log(error); 
-            // alert(error);
+            alert(error);
 
-            // e.preventDefault();
+            e.preventDefault();
             });
 
  
@@ -332,7 +333,7 @@ function EditMusic() {
                         <input type="text" placeholder={"Song Name"} id={"songName"} name='songName' defaultValue={data.name}  onChange={handleChange} required/>
                         {/* <input type="text" placeholder={"CurrentPlayingLarge Name"} id={"name"} name='Lname'   onChange={handleChange} required/> */}
                         <input type="text" placeholder={"Singer Name"} id={"artist"} name='Sname' defaultValue={data.author_name}  onChange={handleChange} required/>
-                        <Button  style={{backgroundColor: useStyle.theme, width:'100%'}} variant={"contained"} endIcon={<UpdateTwoTone/>} onClick={add} type='submit' href='/home/edit'>
+                        <Button  style={{backgroundColor: useStyle.theme, width:'100%'}} variant={"contained"} endIcon={<UpdateTwoTone/>} onClick={add} type='submit'>
                             {/* <Link to={"/home"} style={{textdecoration: ""}}> */}
                             Update
                             {/* </Link> */}

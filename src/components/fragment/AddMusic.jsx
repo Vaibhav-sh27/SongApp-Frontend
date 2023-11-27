@@ -5,7 +5,7 @@ import {Button} from "@material-ui/core";
 import {ThemeContext} from "../../api/Theme";
 import musicDB from "../../db/music";
 import axios from "axios";
-import { useHistory, Redirect, Link } from "react-router-dom";
+import {Redirect, Link, useHistory } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 import Modal from 'react-bootstrap/Modal';
 import { getStorage, deleteObject } from "firebase/storage";
@@ -150,11 +150,15 @@ function AddMusic() {
             .then((response) => {
             console.log(JSON.stringify(response.data));
             // navigate('/home');
-            // history.push("/home");
+            history.push("/home");
+            window.location.reload();
             })
+            // .then(()=>{
+            //     history.replace("/home");
+            // })
             .catch((error) => {
             console.log(error); 
-            // alert(error);
+            alert(error);
 
             e.preventDefault();
             });
@@ -289,7 +293,7 @@ function AddMusic() {
                         <input type="text" placeholder={"Song Name"} id={"songName"} name='songName'  onChange={handleChange} required/>
                         {/* <input type="text" placeholder={"CurrentPlayingLarge Name"} id={"name"} name='Lname'  onChange={handleChange} required/> */}
                         <input type="text" placeholder={"Singer Name"} id={"artist"} name='Sname'  onChange={handleChange} required/>
-                        <Button  style={{backgroundColor: useStyle.theme, width:'100%'}} variant={"contained"} endIcon={<Add/>} onClick={add} type='submit' href='/home'>
+                        <Button  style={{backgroundColor: useStyle.theme, width:'100%'}} variant={"contained"} endIcon={<Add/>} onClick={add} type='submit'>
                             {/* <Link to={"/home"} style={{textdecoration: ""}}> */}
                             Add
                             {/* </Link> */}

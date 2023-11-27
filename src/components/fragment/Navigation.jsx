@@ -54,11 +54,11 @@ function Navigation() {
                 {/* <Button variant="primary" onClick={handleShow}>
                     Admin
                 </Button> */}
-                {
-                    
+                {   
+                    sessionStorage.isAdmin==="true"?
                     <Button onClick={handleShow}>
                     Admin
-                    </Button> 
+                    </Button> :<></> 
 
                 }
                 <Modal show={show} onHide={handleClose}>
@@ -98,7 +98,7 @@ function Navigation() {
             </div>
             <div className="profile" onClick={handleOpenProfile}>
                 <Button className={"Dropdown-btn"}
-                        startIcon={<Avatar style={{width:'30px',height:'30px',padding:'18px'}} >VS</Avatar>}
+                        startIcon={<Avatar style={{width:'30px',height:'30px',padding:'18px'}} >{sessionStorage.name.toUpperCase().split(' ')[0]?.[0]}{sessionStorage.name.toUpperCase().split(' ')[1]?.[0]}</Avatar>}
                         endIcon={isOpenProfile ? <ExpandMoreIcon/> : <ExpandLessIcon/>}>
 
                 </Button>
