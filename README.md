@@ -1,5 +1,4 @@
 <h1 align="center">BeatX</h1>
-<br>
 # Frontend
 [BeetX - The Music destination you want](https://beetx.netlify.app)
 # Backend
