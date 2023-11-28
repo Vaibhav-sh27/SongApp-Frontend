@@ -6,6 +6,7 @@
   .bottom-navigation {
     height: 10vh;
     display: flex;
+    color: rgb(220, 221, 223);
   }
   .bottom-navigation div {
     height: 10vh;

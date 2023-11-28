@@ -7,6 +7,7 @@
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.56",
+    "@react-oauth/google": "^0.12.1",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.3.2",
     "@testing-library/user-event": "7.1.2",
@@ -14,6 +15,7 @@
     "bootstrap": "^5.3.2",
     "dotenv": "8.2.0",
     "firebase": "^10.6.0",
+    "framer-motion": "3.1.1",
     "grade-js": "1.0.10",
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
@@ -28,8 +30,7 @@
     "react-spinners": "^0.13.8",
     "redux": "4.0.5",
     "sass": "1.49.11",
-    "styled-components": "5.2.1",
-    "framer-motion": "3.1.1"
+    "styled-components": "5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

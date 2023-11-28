@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import '../assets/scss/HoverButton.scss';
 import {Button} from "@material-ui/core";
 import {ThemeContext} from "../../api/Theme";
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 
 import {Link, useHistory } from "react-router-dom";
 
@@ -14,8 +15,10 @@ function HoverButton({text,variant,Icon}) {
     };
     const logoutHandler = () => {
         sessionStorage.clear();
+        googleLogout();
         // navigate('/')
         history.replace('/');
+        window.location.reload();
 
     }
     const handleOut = () => {

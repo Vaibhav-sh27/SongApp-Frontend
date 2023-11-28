@@ -38,7 +38,7 @@ function Profile() {
         <Container>
             <div className={"Profile"}>
                 <div className="top-profile">
-                    <Avatar variant={"rounded"} src={require("../assets/img/avatar2.jpg")}
+                    <Avatar variant={"rounded"} src={sessionStorage.picture?sessionStorage.picture:require("../assets/img/avatar2.jpg")}
                             style={{width: "150px", height: "150px"}}>
                     </Avatar>
                     <div className="profile-detail">

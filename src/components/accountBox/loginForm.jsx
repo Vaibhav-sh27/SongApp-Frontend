@@ -1,6 +1,7 @@
 // import React, { useContext } from "react";
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import axios from "axios";
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import {
   BoldLink,
   BoxContainer,
@@ -16,6 +17,7 @@ import HashLoader from "react-spinners/HashLoader";
 import {Link, useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import {Button} from "@material-ui/core";
+import gg from "./google.svg";
 
 export function LoginForm(props) {
 
@@ -33,42 +35,23 @@ export function LoginForm(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+
   useEffect(()=>{
     if(sessionStorage.name){
       history.push('/home');
     }
   })
-  // const signupSubmitHandler = (event) => {
-  //   event.preventDefault();
-  //   updateIsLoading(true)
-
-  //   const url = `${window.API_URL}/user`;
-  //   axios.post(url, payload)
-  //     .then((res) => {
-  //       updateIsLoading(false)
-  //       if (res?.status === 200) {
-  //         alert(res?.data?.msg)
-  //         updateFormState('login');
-  //       }
-  //       else {
-  //         alert(res?.data?.msg)
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       updateIsLoading(false)
-  //       alert(err?.response?.data?.msg)
-  //     });
-  // }
-
-  // const passwordShownHandler = (event) => {
-  //   let checked = event?.target?.checked;
-  //   updateIsPasswordShown(checked);
-  // }
+  
 
   const onClickHandler = (value) => {
     updateFormState(value);
     updatePayload({ name: "", email: "", password: "" })
   };
+
+
+  
 
   const onChangeHandler = (event) => {
     let id = event?.target?.id;
@@ -127,31 +110,40 @@ export function LoginForm(props) {
         
         // alert(err?.response?.data?.msg)
       });
-
-
-    // axios.post(url, payload)
-    //   .then((res) => {
-    //     updateIsLoading(false);
-    //     if (res?.status === 200) {
-    //       alert(res?.data?.msg);
-    //       sessionStorage.setItem("name", res?.data?.data?.name);
-    //       sessionStorage.setItem("email", res?.data?.data?.email);
-    //       sessionStorage.setItem("notes", JSON.stringify(res?.data?.data?.notes));
-    //       <Link to="/home"/>
-    //       // navigate(`/user/${res?.data?.data?._id}`);
-    //     }
-    //     else if (res.status === 401) {
-    //       alert(res?.data?.msg);
-    //     }
-    //     else {
-    //       alert(res?.data?.msg);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     updateIsLoading(false)
-    //     alert(err?.response?.data?.msg)
-    //   });
   };
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log('Login Failed:', error)
+});
+
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+  };
+
+  useEffect(
+    () => {
+        if (user) {
+            axios
+                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+                    setProfile(res.data);
+                    sessionStorage.setItem("name", res?.data?.name);
+                    sessionStorage.setItem("email", res?.data?.email);
+                    sessionStorage.setItem("picture", res?.data?.picture);
+                    sessionStorage.setItem("isAdmin", false);
+                })
+                .catch((err) => console.log(err));
+        }
+    },
+    [ user ]
+  );
 
   return (
     <BoxContainer>
@@ -208,6 +200,19 @@ export function LoginForm(props) {
           Signup
         </BoldLink>
       </LineText>
+      {/* <i class="bi bi-google"></i> */}
+      {/* <button type="button" class="btn btn-link btn-floating mx-1" style={{backgroundColor:'red', borderRadius:"50%"}} >
+      <img src={gg} alt="" style={{width:"30px", height:"40px"}}/>
+    </button> */}
+    <div class="col s12 m6 offset-m3 center-align">
+    <button class="oauth-container btn darken-4 white black-text" onClick={()=>{login();}}  style={{textTransform:"none", display:"flex", justifyContent:"space-between", alignItems:"center", color:"black", backgroundColor:"rgb(220, 221, 223)", borderRadius:"50px"}}>
+        <div class="left">
+            <img width="20px" alt="Google sign-in" 
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=" />
+        </div>
+    </button>
+</div>
+    
     </BoxContainer>
   );
 }
