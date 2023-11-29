@@ -160,7 +160,7 @@ export function LoginForm(props) {
                           sessionStorage.setItem("name", res?.data?.data?.name);
                           sessionStorage.setItem("isAdmin", res?.data?.data?.isAdmin);
                           // history.push("/home");
-                          // window.location.reload();
+                          window.location.reload();
                         }
                         else {
                           // setAlert(res?.data?.msg);
