@@ -137,7 +137,46 @@ export function LoginForm(props) {
                     sessionStorage.setItem("name", res?.data?.name);
                     sessionStorage.setItem("email", res?.data?.email);
                     sessionStorage.setItem("picture", res?.data?.picture);
-                    sessionStorage.setItem("isAdmin", false);
+
+                    const url = `${window.API_URL}/google_login`;
+                    let data= qs.stringify({
+                      name: res?.data?.name,
+                      email: res?.data?.email,
+                      password: ""
+                    });
+                    let config = {
+                      method: 'post',
+                      maxBodyLength: Infinity,
+                      url: url,
+                      headers: { 
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                      }, 
+                      data : data
+                    };
+                    axios.request(config)
+                      .then((res) => {
+                        // updateIsLoading(false);
+                        if (res?.status === 200) {
+                          sessionStorage.setItem("name", res?.data?.data?.name);
+                          sessionStorage.setItem("isAdmin", res?.data?.data?.isAdmin);
+                          // history.push("/home");
+                          // window.location.reload();
+                        }
+                        else {
+                          // setAlert(res?.data?.msg);
+                          // handleShow();
+                          console.log(res?.data?.msg);
+                          // alert(res?.data?.msg);
+                        }
+                      })
+                      .catch((err) => {
+                        // updateIsLoading(false)
+                        // setAlert(err?.response?.data?.msg);
+                        // handleShow();
+                        console.log(err?.response?.data?.msg);
+                        // alert(err?.response?.data?.msg)
+                      });
+                    // sessionStorage.setItem("isAdmin", false);
                 })
                 .catch((err) => console.log(err));
         }
