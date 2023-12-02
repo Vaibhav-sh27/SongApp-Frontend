@@ -7,4 +7,4 @@
 - [BeatX API](https://song-app-backend.vercel.app)
   - [Song DATA](https://song-app-backend.vercel.app/songs) in API
 ## Document Link(Report, Synopsis,..etc)
--[Documents](https://drive.google.com/drive/folders/1M-9NUj-pjmy2lLvyuNsqUkpepfFxCXIg?usp=drive_link)
+- [Documents](https://drive.google.com/drive/folders/1M-9NUj-pjmy2lLvyuNsqUkpepfFxCXIg?usp=drive_link)
